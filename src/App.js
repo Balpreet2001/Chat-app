@@ -1,11 +1,10 @@
-import './App.css';
-import 'rsuite/dist/styles/rsuite-default.css'
 import './styles/main.scss';
+import 'rsuite/dist/rsuite.min.css';
 
 function App() {
   return (
     <div>
-      <h1>hello</h1>
+    hello
     </div>
   );
 }
