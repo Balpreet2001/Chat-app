@@ -1,19 +1,31 @@
-import {Container , Grid, Row , Button  , Col , IconButton} from 'rsuite'
+import {Container , Grid, Row , Col , IconButton} from 'rsuite'
 import FacebookOfficialIcon from '@rsuite/icons/legacy/FacebookOfficial';
 import Google from '@rsuite/icons/legacy/Google';
-import { auth } from '../misc/firebase';
+import { auth, database } from '../misc/firebase';
 import firebase from 'firebase/app';
-
+import {Message} from 'rsuite'
 
 const SignIn = () => {
 
      const signInWithProvider = async (provider) =>{
           
-          const result = await auth.signInWithPopup(provider)
-          console.log('result: ',result)
+      try{
+          const {additionalUserInfo , user} = await auth.signInWithPopup(provider)
+
+          if(additionalUserInfo.isNewUser){
+            await database.ref(`/profiles/${user.uid}`).set({
+              name : user.displayName,
+              createdAt : firebase.database.ServerValue.TIMESTAMP,
+            });
+          }
+
+        alert('Signed in')
+      }catch(err) {
+        alert(err.message)
+      }
+      
      }
      const onFacebookSignIn = () => {
-
           signInWithProvider(new firebase.auth.FacebookAuthProvider())
      }
 
@@ -33,7 +45,7 @@ const SignIn = () => {
                 <p>Progressive chat platform for neophytes</p>
               </div>
               <div className="text-center">
-                <div className="m-4 p-2">
+                <div className="m-4">
                   <IconButton
                     onClick={onFacebookSignIn}
                     color="blue"
@@ -43,7 +55,7 @@ const SignIn = () => {
                     Continue with Facebook   
                   </IconButton>
                 </div>
-                <div>
+                <div className="m-4">
                   <IconButton
                     onClick={onGoogleSignIn}
                     color="green"
