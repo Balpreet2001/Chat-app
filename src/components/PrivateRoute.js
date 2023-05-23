@@ -1,16 +1,10 @@
-import { Navigate, Route } from "react-router"
+import { Navigate, Outlet } from "react-router"
 
 const PrivateRoute = ({children ,...routeProps}) => {
-     const profile = false;
-
-
-     if(!profile){
-          return <Navigate to= "/signin" />
-     }
-
+     let profile = false;
 
   return (
-    <Route {...routeProps}>{children}</Route>
+    profile ?<Outlet/>: <Navigate to='/login/'></Navigate>
   )
 }
 
