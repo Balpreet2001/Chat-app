@@ -1,9 +1,9 @@
-import {Container , Grid, Row , Col , IconButton} from 'rsuite'
+import {Container , Grid, Row , Col , IconButton,Panel} from 'rsuite'
 import FacebookOfficialIcon from '@rsuite/icons/legacy/FacebookOfficial';
 import Google from '@rsuite/icons/legacy/Google';
 import { auth, database } from '../misc/firebase';
 import firebase from 'firebase/app';
-import {Message} from 'rsuite'
+
 
 const SignIn = () => {
 
@@ -39,7 +39,7 @@ const SignIn = () => {
       <Grid className='mt-page'>
         <Row>
           <Col xs={24} md={12} mdOffset={6}>
-            <panel>
+            <Panel>
               <div className="text-center">
                 <h2>Welcome to chat</h2>
                 <p>Progressive chat platform for neophytes</p>
@@ -55,7 +55,7 @@ const SignIn = () => {
                     Continue with Facebook   
                   </IconButton>
                 </div>
-                <div className="m-4">
+                <div className="m-2">
                   <IconButton
                     onClick={onGoogleSignIn}
                     color="green"
@@ -66,7 +66,7 @@ const SignIn = () => {
                   </IconButton>
                 </div>
               </div>
-            </panel>
+            </Panel>
           </Col>
         </Row>
       </Grid>
